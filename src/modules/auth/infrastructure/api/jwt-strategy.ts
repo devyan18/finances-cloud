@@ -1,13 +1,13 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
 import { ConfigService } from '@nestjs/config';
+import { UserFinder } from 'src/modules/user/application/user-finder/user-finder';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    private userService: UsersService,
+    private userFinder: UserFinder,
     configService: ConfigService,
   ) {
     super({
@@ -17,7 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    const user = await this.userService.findOne(payload.id);
+    const user = await this.userFinder.run(payload.id);
 
     return user;
   }

@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { User } from '../entities/user.entity';
+import { User } from '../../domain/user';
 
 export class CreateUserDto implements Partial<User> {
   @IsEmail()

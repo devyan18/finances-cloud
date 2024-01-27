@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { config } from './settings/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from './modules/user/infrastructure/api/user.module';
+import { AuthModule } from './modules/auth/infrastructure/api/auth.module';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       }),
       inject: [ConfigService],
     }),
-    UsersModule,
+    UserModule,
     AuthModule,
   ],
 })
